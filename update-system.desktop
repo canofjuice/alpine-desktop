@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Icon=update-notifier
+Name=Update System
+Name[C]=Update System
+Name[C.UTF-8]=Update System
+Comment=Check and apply updates to the system.
+Comment[C]=Check and apply updates to the system.
+Comment[C.UTF-8]=Check and apply updates to the system.
+Categories=Settings;System
+Exec=update-system
+Hidden=false
+NoDisplay=false
+StartupNotify=false
+Terminal=false
+
