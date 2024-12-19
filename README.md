@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This script currently doesn't work and causes XFCE to crash upon logging in. Rewrite in progress... FML
+
 ```
      ####################    
     ######################   
@@ -12,9 +15,6 @@
 ![Screenshot of the custom desktop layout.](/media/screenshot.png)
 
 Straight forward script that installs the XFCE desktop, extra software and tweaks for a usable desktop Alpine experience.
-
-> [!CAUTION]
-> As this was just created recently, this script probably have many issues and probably a lot of misspelling. Test in a VM first!
 
 ## How to?
 
