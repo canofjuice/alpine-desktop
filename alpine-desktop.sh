@@ -55,13 +55,10 @@ touch /etc/apk/repositories
 setup-apkrepos -fc
 apk update
 apk upgrade
+setup-xorg-base
 setup-desktop xfce
 setup-devd udev
-apk add xf86-input-evdev xf86-input-libinput xf86-input-wacom xf86-input-synaptics xf86-input-vmmouse xf86-input-mtrack xf86-video-nouveau xf86-video-nv xf86-video-vesa xf86-video-ark xf86-video-i740 xf86-video-amdgpu xf86-video-ati xf86-video-intel xf86-video-fbdev xf86-video-vmware xf86-video-qxl
-apk add intel-ucode amd-ucode
-apk add font-terminus font-inconsolata font-dejavu font-noto font-noto-cjk font-awesome font-noto-extra font-cantarell font-vollkorn font-misc-cyrillic font-mutt-misc font-screen-cyrillic font-winitzki-cyrillic font-cronyx-cyrillic font-noto-thai font-noto-tibetan font-ipa font-sony-misc font-jis-misc font-noto-arabic font-noto-armenian font-noto-cherokee font-noto-devanagari font-noto-ethiopic font-noto-georgian font-noto-hebrew font-noto-lao font-noto-malayalam font-noto-tamil font-noto-thaana
-fc-cache -fv
-apk add elogind polkit-elogind fuse3 fuse-openrc gvfs udisks2 dbus dbus-x11 pipewire pipewire-pulse wireplumber gst-plugin-pipewire networkmanager networkmanager-wifi wpa_supplicant network-manager-applet bluez blueman ufw 7zip unzip zip xz gzip ntfs-3g dosfstools exfatprogs fuse-exfat gvfs-afp gvfs-mtp gvfs-smb gvfs-afc gvfs-nfs gvfs-archive gvfs-dav gvfs-fuse gvfs-gphoto2 gvfs-avahi gvfs-goa gvfs-cdda
+apk add xf86-input-evdev xf86-input-libinput xf86-input-wacom xf86-input-synaptics xf86-input-vmmouse xf86-input-mtrack xf86-video-nouveau xf86-video-nv xf86-video-vesa xf86-video-ark xf86-video-i740 xf86-video-amdgpu xf86-video-ati xf86-video-intel xf86-video-fbdev xf86-video-vmware xf86-video-qxl font-terminus font-inconsolata font-dejavu font-noto font-noto-cjk font-awesome font-noto-extra font-noto-emoji font-cantarell elogind polkit-elogind fuse3 fuse-openrc gvfs udisks2 dbus dbus-x11 pipewire pipewire-pulse wireplumber gst-plugin-pipewire networkmanager networkmanager-wifi wpa_supplicant network-manager-applet bluez blueman ufw 7zip unzip zip xz gzip ntfs-3g dosfstools exfatprogs gvfs-mtp gvfs-smb gvfs-afc gvfs-nfs intel-ucode amd-ucode xdg-user-dirs xdg-desktop-portal-gtk xarchiver galculator mousepad ristretto parole thunar-archive-plugin xfce4-appfinder xfce4-screenshooter xfce4-taskmanager xfce-polkit mugshot pavucontrol xfce4-screensaver xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-clipman-plugin xfce4-notifyd mesa mesa-dri-gallium mesa-egl mesa-gbm mesa-gl mesa-glapi mesa-gles mesa-va-gallium mesa-vdpau-gallium mesa-vulkan-ati mesa-vulkan-intel gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-vaapi gst-libav apk-gtk3
 rc-update add elogind default
 rc-update add fuse default
 rfkill unblock all
@@ -104,13 +101,11 @@ ufw enable
 ufw default deny incoming
 ufw default allow outgoing
 rc-update add ufw default
-apk add firefox xdg-user-dirs xdg-desktop-portal-gtk xarchiver galculator mousepad ristretto parole thunar-archive-plugin xfce4-appfinder xfce4-screenshooter xfce4-taskmanager xfce-polkit mugshot pavucontrol xfce4-screensaver xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-clipman-plugin xfce4-notifyd mesa mesa-dri-gallium mesa-egl mesa-gbm mesa-gl mesa-glapi mesa-gles mesa-libd3dadapter9 mesa-osmesa mesa-rusticl mesa-va-gallium mesa-vdpau-gallium mesa-vulkan-ati mesa-vulkan-intel mesa-vulkan-layers gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-vaapi gst-libav
 echo "XCURSOR_THEME=Adwaita" >> /etc/environment
 mkdir /usr/share/icons/default
 touch /usr/share/icons/default/index.theme
 echo "[Adwaita]" >> /usr/share/icons/default/index.theme
 echo "Inherits=Adwaita" >> /usr/share/icons/default/index.theme
-apk add apk-gtk3
 echo "pkexec apk-gtk update && pkexec apk-gtk upgrade" > /usr/bin/update-system
 chmod +x /usr/bin/update-system
 cp update-system.desktop /usr/share/applications
@@ -118,7 +113,7 @@ cp wallpaper.jpg /usr/share/backgrounds
 echo "background=/usr/share/backgrounds/wallpaper.jpg" >> /etc/lightdm/lightdm-gtk-greeter.conf
 clear
 echo "Enter the password of the regular user:"
-doas -u $NORMALUSER xdg-user-dirs-update --force
+doas -u $NORMALUSER xdg-user-dirs-update
 clear
 while true; do
 	echo "Would you like to apply desktop customizations? This will install a theme, icon set and change the default XFCE panel layout."
