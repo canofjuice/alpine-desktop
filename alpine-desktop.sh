@@ -9,14 +9,40 @@ then
 	echo "Please switch to the root user to continue."
 	exit
 fi
+
+while true; do
+	echo "Have you created a regular user? ( Y / N )"
+	read yn
+	case $yn in
+		[Yy]* ) break ;;
+		[Nn]* ) echo "A regular user is required to proceed with the script."; echo "You must run "setup-user -a" to create a regular user and proceed with the script."; exit ;;
+		* ) echo "Have you created a regular user? ( Y / N )";;
+	esac
+done
+
+echo "Enter the name of the regular user:"
+read NORMALUSER
+
 clear
+                          
+echo "     ####################    "
+echo "    ######################   "
+echo "   ########   ###  ########         _    _       _              ____            _    _              "
+echo "  #######   #   #    #######       / \  | |_ __ (_)_ __   ___  |  _ \  ___  ___| | _| |_ ___  _ __  "
+echo " ######   #####   #    ######     / _ \ | | '_ \| | '_ \ / _ \ | | | |/ _ \/ __| |/ / __/ _ \| '_ \ "
+echo "  ###      ######   #    ###     / ___ \| | |_) | | | | |  __/ | |_| |  __/\__ \   <| || (_) | |_) |"
+echo "   ########################     /_/   \_\_| .__/|_|_| |_|\___| |____/ \___||___/_|\_\\__\___/| .__/ "
+echo "    ######################                |_|                                                |_|    "
+echo "     ####################    "
+echo ""
+echo ""
 echo "Welcome to the Alpine Desktop script!"
 echo "This script will install and configure a desktop environment for your current Alpine Linux installation."
 echo "You will also be asked extra questions about installing extra software and other things."
-echo " "
-echo " "
-echo " "
-read -p "Strike any key to start the script. Otherwise, strike CTRL + C to cancel the operation."
+echo ""
+echo ""
+echo ""
+read -p "Press any key to start the script. Otherwise, strike CTRL + C to cancel the operation."
 clear ; echo "Installation in progress! Do not terminate the script while running, otherwise the system might be unstable!" && sleep 3s
 
 if [ ! -f /etc/apk/repositories.bak ]
@@ -77,11 +103,11 @@ ufw enable
 ufw default deny incoming
 ufw default allow outgoing
 rc-update add ufw default
-apk add firefox xdg-user-dirs xdg-desktop-portal-gtk xarchiver galculator mousepad ristretto parole thunar-archive-plugin xfce4-appfinder xfce4-screenshooter xfce4-taskmanager mugshot pavucontrol xfce4-screensaver xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-clipman-plugin xfce4-notifyd mesa mesa-dri-gallium mesa-egl mesa-gbm mesa-gl mesa-glapi mesa-gles mesa-libd3dadapter9 mesa-osmesa mesa-rusticl mesa-va-gallium mesa-vdpau-gallium mesa-vulkan-ati mesa-vulkan-intel mesa-vulkan-layers gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-vaapi gst-libav
+apk add firefox xdg-user-dirs xdg-desktop-portal-gtk xarchiver galculator mousepad ristretto parole thunar-archive-plugin xfce4-appfinder xfce4-screenshooter xfce4-taskmanager xfce-polkit mugshot pavucontrol xfce4-screensaver xfce4-whiskermenu-plugin xfce4-pulseaudio-plugin xfce4-clipman-plugin xfce4-notifyd mesa mesa-dri-gallium mesa-egl mesa-gbm mesa-gl mesa-glapi mesa-gles mesa-libd3dadapter9 mesa-osmesa mesa-rusticl mesa-va-gallium mesa-vdpau-gallium mesa-vulkan-ati mesa-vulkan-intel mesa-vulkan-layers gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-vaapi gst-libav
 echo "XCURSOR_THEME=Adwaita" >> /etc/environment
 mkdir /usr/share/icons/default
 touch /usr/share/icons/default/index.theme
-echo "[Adwaita] >> /usr/share/icons/default/index.theme
+echo "[Adwaita]" >> /usr/share/icons/default/index.theme
 echo "Inherits=Adwaita" >> /usr/share/icons/default/index.theme
 apk add apk-gtk3
 echo "pkexec apk-gtk update && pkexec apk-gtk upgrade" > /usr/bin/update-system
@@ -89,13 +115,6 @@ chmod +x /usr/bin/update-system
 cp update-system.desktop /usr/share/applications
 cp wallpaper.jpg /usr/share/backgrounds
 echo "background=/usr/share/backgrounds/wallpaper.jpg" >> /etc/lightdm/lightdm-gtk-greeter.conf
-clear
-echo " "
-echo " "
-echo " "
-echo " "
-echo "Enter the username of the regular user:"
-read NORMALUSER
 doas -u $NORMALUSER xdg-user-dirs-update --force
 clear
 while true; do
@@ -103,7 +122,7 @@ while true; do
 	echo "( Y / N )"
 	read YN
 	case $YN in
-		[Yy]* ) apk add adw-gtk3 papirus-icon-theme adwaita-qt adwaita-qt5 adwaita-qt6; echo "QT_STYLE_OVERRIDE=adwaita-dark" >> /etc/environment ; mkdir /home/$NORMALUSER/.config ; cp -r xfce4 /home/$NORMALUSER/.config ; chown -Rc $NORMALUSER /home/$NORMALUSER/.config ; chown -Rc $NORMALUSER /home/$NORMALUSER/.config/xfce4 ; mkdir /etc/skel/.config ; cp -r xfce4 /etc/skel/.config; echo "background=/usr/share/backgrounds/wallpaper.jpg" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "theme-name=adw-gtk3-dark" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "icon-theme-name=Papirus-Dark" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "font-name=Cantarell" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "cursor-theme-name=Adwaita" >> /etc/lightdm/lightdm-gtk-greeter.conf; break ;;
+		[Yy]* ) apk add adw-gtk3 papirus-icon-theme adwaita-qt adwaita-qt5 adwaita-qt6; echo "QT_STYLE_OVERRIDE=adwaita-dark" >> /etc/environment ; mkdir /home/$NORMALUSER/.config ; cp -r xfce4 /home/$NORMALUSER/.config/ ; chown -Rc $NORMALUSER /home/$NORMALUSER/.config ; chown -Rc $NORMALUSER /home/$NORMALUSER/.config/xfce4 ; mkdir /etc/skel/.config ; cp -r xfce4 /etc/skel/.config; echo "background=/usr/share/backgrounds/wallpaper.jpg" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "theme-name=adw-gtk3-dark" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "icon-theme-name=Papirus-Dark" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "font-name=Cantarell" >> /etc/lightdm/lightdm-gtk-greeter.conf; echo "cursor-theme-name=Adwaita" >> /etc/lightdm/lightdm-gtk-greeter.conf; break ;;
 		[Nn]* ) break ;;
 		* ) echo "Would you like to apply desktop customizations? This will install a theme, icon set and change the default XFCE panel layout." & echo "( Y / N )";;
 	esac
@@ -175,7 +194,7 @@ while true; do
 	echo "Would you like to install Flatpak support? ( Y / N )"
 	read yn
 	case $yn in
-		[Yy]* ) apk add flatpak; flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo; doas -u $NORMALUSER xdg-user-dirs-update break;;
+		[Yy]* ) apk add flatpak; flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo; doas -u $NORMALUSER xdg-user-dirs-update; break;;
 		[Nn]* ) break;;
 		* ) echo "Would you like to install Flatpak support? ( Y / N )";;
 	esac
