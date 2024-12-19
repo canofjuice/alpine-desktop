@@ -24,7 +24,8 @@ echo "Enter the name of the regular user:"
 read NORMALUSER
 
 clear
-                          
+echo ""
+echo ""
 echo "     ####################    "
 echo "    ######################   "
 echo "   ########   ###  ########         _    _       _              ____            _    _              "
@@ -115,6 +116,8 @@ chmod +x /usr/bin/update-system
 cp update-system.desktop /usr/share/applications
 cp wallpaper.jpg /usr/share/backgrounds
 echo "background=/usr/share/backgrounds/wallpaper.jpg" >> /etc/lightdm/lightdm-gtk-greeter.conf
+clear
+echo "Enter the password of the regular user:"
 doas -u $NORMALUSER xdg-user-dirs-update --force
 clear
 while true; do
@@ -184,7 +187,7 @@ while true; do
 	echo "Would you like to use VLC instead of Parole for media playback? ( Y / N )"
 	read yn
 	case $yn in
-		[Yy]* ) apk del parole; apk add vlc-qt break;;
+		[Yy]* ) apk del parole; apk add vlc-qt; break;;
 		[Nn]* ) break;;
 		* ) echo "Would you like to use VLC instead of Parole for media playback? ( Y / N )";;
 	esac
