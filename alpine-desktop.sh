@@ -1,3 +1,4 @@
+
 #!/bin/sh
 LOGDATE=$(date +"%Y-%m-%d-%T")
 exec > >(tee output-$LOGDATE.log) 2>&1
