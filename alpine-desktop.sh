@@ -156,7 +156,7 @@ while true; do
 	echo "Would you like to install Abiword and Gnumeric instead? ( Y / N )"
 	read yn
 	case $yn in
-		[Yy]* ) apk add libreoffice; break ;;
+		[Yy]* ) apk add abiword gnumeric; break ;;
 		[Nn]* ) break ;;
 		* ) echo "Would you like to install Abiword and Gnumeric instead? ( Y / N )";;
 	esac
